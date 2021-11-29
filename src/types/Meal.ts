@@ -35,10 +35,6 @@ export class Meal {
     setmealReceipe(newListReceipe : Array<Receipe>){
         this.mealReceipe=newListReceipe;
     }
-
-;
-
-
     //   /**
     //    * @brief  Returns the ingredients for the meal
     //    */
