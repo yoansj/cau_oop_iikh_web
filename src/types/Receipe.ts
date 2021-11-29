@@ -1,4 +1,4 @@
-enum Ingredient {
+export enum Ingredient {
     EGG="EGG",
     SALAD="SALAD",
     TOMATO="TOMATO",
@@ -26,7 +26,7 @@ enum Ingredient {
 }
 
 
-class Receipe {
+export class Receipe {
     private name : string;
     //number in grames for the quantity
     private ingredients:Array<[Ingredient,number]>;
@@ -81,7 +81,7 @@ class Receipe {
 
     upScaleReceipe(newEaters:number):Receipe{
         let factor = newEaters/this.eaters;
-        let newlist: Array<[Ingredient,number]>;
+        let newlist: Array<[Ingredient,number]>=[];
         for(var i = 0; i < this.ingredients.length; i++){ 
             newlist.push([this.ingredients[i][0],this.ingredients[i][1]*factor]);
         }
