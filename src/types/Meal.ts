@@ -1,4 +1,5 @@
 import { Receipe } from "./Receipe";
+import { Ingredient } from "./Receipe";
 
 export class Meal {
 
@@ -34,6 +35,12 @@ export class Meal {
 
     setmealReceipe(newListReceipe : Array<Receipe>){
         this.mealReceipe=newListReceipe;
+    }
+
+    getMealIngredients() : Array<[Ingredient,number]>{
+        let listIngredients : Array<[Ingredient,number]>=[];
+        //A FINIR
+        return listIngredients;
     }
     //   /**
     //    * @brief  Returns the ingredients for the meal
