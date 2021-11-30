@@ -56,9 +56,9 @@ export class ReceipeDatabase {
    * @param receipe - Receipe edited
    */
   editReceipe(receipe: Receipe): boolean {
-    const index = this.receipesArray.findIndex(
-      (r) => r.getId() === receipe.getId()
-    );
+    const index = this.receipesArray.findIndex((r) => {
+      return r.getId() === receipe.getId();
+    });
 
     if (index === -1) {
       return false;
@@ -67,6 +67,25 @@ export class ReceipeDatabase {
       this.receipesArray[index].setEaters(receipe.getEaters());
       this.receipesArray[index].setExplanation(receipe.getExplanation());
       this.receipesArray[index].setIngredients(receipe.getIngredients());
+      localStorage.setItem(databaseKey, JSON.stringify(this.receipesArray));
+      this.refreshReceipes();
+      return true;
+    }
+  }
+
+  /**
+   * Deletes a receipe from the database
+   * @param receipe - Requires the original receipe
+   */
+  deleteReceipe(receipe: Receipe): boolean {
+    const index = this.receipesArray.findIndex((r) => {
+      return r.getId() === receipe.getId();
+    });
+
+    if (index === -1) {
+      return false;
+    } else {
+      this.receipesArray.splice(index, 1);
       localStorage.setItem(databaseKey, JSON.stringify(this.receipesArray));
       this.refreshReceipes();
       return true;

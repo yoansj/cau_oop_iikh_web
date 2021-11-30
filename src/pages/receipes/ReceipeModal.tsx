@@ -108,15 +108,22 @@ export default function ReceipeModal({
       setError(true);
       setTimeout(() => setError(false), 15000);
     } else {
-      const receipe = new Receipe(
-        title.trim(),
-        ingredients,
-        eaters,
-        explaination.trim()
-      );
       if (editingReceipe === undefined) {
+        const receipe = new Receipe(
+          title.trim(),
+          ingredients,
+          eaters,
+          explaination.trim()
+        );
         receipeDatabase.addReceipe(receipe);
       } else {
+        const receipe = new Receipe(
+          title.trim(),
+          ingredients,
+          eaters,
+          explaination.trim(),
+          editingReceipe.getId()
+        );
         receipeDatabase.editReceipe(receipe);
       }
       handleCloseModal();
@@ -222,6 +229,7 @@ export default function ReceipeModal({
                 direction="row"
                 spacing={2}
                 sx={{ margin: "0.25px" }}
+                key={index}
               >
                 <Grid item>
                   • {ingredient[1]} {ingredient[0]}

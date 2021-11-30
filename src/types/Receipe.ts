@@ -152,8 +152,8 @@ export default class Receipe {
       this.name,
       newlist,
       newEaters,
-      this.id,
-      this.explanation
+      this.explanation,
+      this.id
     );
   }
 }

@@ -18,13 +18,14 @@ import Receipe from "../../types/Receipe";
 export default function Receipes() {
   /* General states */
   const [search, setSearch] = useState("");
+  const [refresh, setRefresh] = useState(false);
   const filteredReceipes = useMemo(() => {
     if (search === "") {
       return receipeDatabase.getAllReceipes();
     } else {
       return receipeDatabase.getReceipesByName(search);
     }
-  }, [search]);
+  }, [search, refresh]);
 
   /* Modal states */
   const [open, setOpen] = useState(false);
@@ -40,6 +41,7 @@ export default function Receipes() {
   // Modal handlers
   const handleCloseModal = () => {
     setOpen(false);
+    if (editedReceipe !== undefined) setEdiReceipe(undefined);
   };
   const handleOpenModal = () => setOpen(true);
 
@@ -116,9 +118,29 @@ export default function Receipes() {
                       <ReceipeCard
                         receipe={receipe}
                         onEdit={handleEditReceipe}
+                        onDelete={() => setRefresh((r) => !r)}
+                        key={receipe.getId()}
                       />
                     ))}
                   </Grid>
+                  {search !== "" ? (
+                    <Typography
+                      variant="body1"
+                      textAlign="center"
+                      color="#1e88e5"
+                    >
+                      {filteredReceipes.length} recipes found
+                    </Typography>
+                  ) : (
+                    <Typography
+                      variant="body1"
+                      textAlign="center"
+                      color="#1e88e5"
+                    >
+                      {filteredReceipes.length} recipe
+                      {filteredReceipes.length > 1 ? "s" : ""} in the database
+                    </Typography>
+                  )}
                 </Paper>
               </Fade>
             </Grid>

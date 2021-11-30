@@ -8,6 +8,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../config/theme";
 
 import Receipe from "../../types/Receipe";
+import { receipeDatabase } from "../../config/classes";
 
 interface IProps {
   /**
@@ -19,11 +20,23 @@ interface IProps {
    * Function called when the receipe needs to be edited
    */
   onEdit?: (receipe: Receipe) => void;
+
+  /**
+   * Function called on delete
+   */
+  onDelete?: () => void;
 }
 
-export default function ReceipeCard({ receipe, onEdit }: IProps) {
+export default function ReceipeCard({ receipe, onEdit, onDelete }: IProps) {
   const handleEdit = () => {
-    if (onEdit) onEdit(receipe);
+    if (onEdit) {
+      onEdit(receipe);
+    }
+  };
+
+  const handleDelete = () => {
+    receipeDatabase.deleteReceipe(receipe);
+    if (onDelete) onDelete();
   };
 
   return (
@@ -67,7 +80,12 @@ export default function ReceipeCard({ receipe, onEdit }: IProps) {
                 </Button>
               </Grid>
               <Grid item>
-                <Button color="error" variant="outlined" size="small">
+                <Button
+                  color="error"
+                  variant="outlined"
+                  size="small"
+                  onClick={handleDelete}
+                >
                   Delete receipe
                 </Button>
               </Grid>
