@@ -2,47 +2,60 @@ import Receipe from "./Receipe";
 import { Ingredient } from "./Receipe";
 
 export class Meal {
-  private mealEaters: number;
-  private mealReceipe: Array<Receipe>;
 
-  // constructor(eaters:number,listReceipe:Array<Receipe>){
-  //     this.mealEaters=eaters;
-  //     this.mealReceipe=listReceipe;
-  // }
-  constructor(eaters: number) {
-    this.mealEaters = eaters;
-    this.mealReceipe = [];
-  }
+    private mealEaters : number;
+    private mealReceipe : Array<Receipe>;
 
-  addReceipe(newReceipe: Receipe) {
-    //Automacally scale the receipe to match with the number of eater for this meal
-    let ReceipeAux: Receipe = newReceipe.upScaleReceipe(this.mealEaters);
-    this.mealReceipe.push(ReceipeAux);
-  }
+    // constructor(eaters:number,listReceipe:Array<Receipe>){
+    //     this.mealEaters=eaters;
+    //     this.mealReceipe=listReceipe;
+    // }
+    constructor(eaters:number){
+        this.mealEaters=eaters;
+        this.mealReceipe=[];
+    }
 
-  getmealEaters(): number {
-    return this.mealEaters;
-  }
+    addReceipe(newReceipe:Receipe) {
+        //Automacally scale the receipe to match with the number of eater for this meal
+        let ReceipeAux : Receipe = newReceipe.upScaleReceipe(this.mealEaters);
+        this.mealReceipe.push(ReceipeAux);
+    }
 
-  setEaters(newEaters: number) {
-    this.mealEaters = newEaters;
-  }
+    getmealEaters(): number{
+        return this.mealEaters;
+    }
 
-  getmealReceipe(): Array<Receipe> {
-    return this.mealReceipe;
-  }
+    setEaters(newEaters:number){
+        this.mealEaters=newEaters;
+    }
 
-  setmealReceipe(newListReceipe: Array<Receipe>) {
-    this.mealReceipe = newListReceipe;
-  }
+    getmealReceipe(): Array<Receipe>{
+        return this.mealReceipe;
+    }
 
-  getMealIngredients(): Array<[Ingredient, number]> {
-    let listIngredients: Array<[Ingredient, number]> = [];
-    //A FINIR
-    return listIngredients;
-  }
-  //   /**
-  //    * @brief  Returns the ingredients for the meal
-  //    */
-  //   Ingredients getMealIngredients() const;
+    setmealReceipe(newListReceipe : Array<Receipe>){
+        this.mealReceipe=newListReceipe;
+    }
+
+    getMealIngredients() : Array<[Ingredient,number]>{
+        var listIngredients : Array<[Ingredient,number]>=[];
+        // var auxingredients : Array<Ingredient>=[];
+        // for(var i = 0; i < this.mealReceipe.length; i++){ 
+
+        //     var aux : Array<[Ingredient,number]>= this.mealReceipe[i].getIngredients();
+        //     for(var j=0;j<aux.length;j++){
+        //         var index : number = auxingredients.indexOf(aux[j][0])
+        //         if(index ==-1){
+        //             //we need to add this new ingredients to the liste
+        //             auxingredients.push(aux[j][0]);
+        //             listIngredients.push(aux[j]);
+        //         } else {
+                    
+        //             //the ingredients is already in the list we just need to add the quantity
+        //         }
+        //     }
+        //     //newlist.push([this.ingredients[i][0],this.ingredients[i][1]*factor]);
+        // }
+        return listIngredients;
+    }
 }
