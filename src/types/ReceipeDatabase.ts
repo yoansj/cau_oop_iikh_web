@@ -50,6 +50,29 @@ export class ReceipeDatabase {
     this.refreshReceipes();
   }
 
+  /**
+   * Edits a receipe by receiving a receipe object
+   * The receipe object must have the same id as the receipe tha needs to be edited
+   * @param receipe - Receipe edited
+   */
+  editReceipe(receipe: Receipe): boolean {
+    const index = this.receipesArray.findIndex(
+      (r) => r.getId() === receipe.getId()
+    );
+
+    if (index === -1) {
+      return false;
+    } else {
+      this.receipesArray[index].setName(receipe.getName());
+      this.receipesArray[index].setEaters(receipe.getEaters());
+      this.receipesArray[index].setExplanation(receipe.getExplanation());
+      this.receipesArray[index].setIngredients(receipe.getIngredients());
+      localStorage.setItem(databaseKey, JSON.stringify(this.receipesArray));
+      this.refreshReceipes();
+      return true;
+    }
+  }
+
   getNumberOfReceipes(): Number {
     return this.receipesArray.length;
   }
@@ -59,9 +82,9 @@ export class ReceipeDatabase {
    * @param query - Search query by the user
    * @returns Found receipes
    */
-  getReceipesByName(query: String): Array<Receipe> {
-    return this.receipesArray.filter(
-      (receipe) => receipe.getName().toLowerCase() === query
+  getReceipesByName(query: string): Array<Receipe> {
+    return this.receipesArray.filter((receipe) =>
+      receipe.getName().toLowerCase().includes(query)
     );
   }
 

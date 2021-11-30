@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Receipes from "./pages/receipes/Receipes";
-import "reflect-metadata";
 
 function App() {
   return (

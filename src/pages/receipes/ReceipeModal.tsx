@@ -8,7 +8,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { receipeDatabase } from "../../config/classes";
 import Receipe, { Ingredient } from "../../types/Receipe";
@@ -23,9 +23,18 @@ interface IProps {
    * Called when the modal is closed
    */
   onClose: () => void;
+
+  /**
+   * If this is given, the modal will go on edit mode
+   */
+  editingReceipe?: Receipe;
 }
 
-export default function NewReceipeModal({ open, onClose }: IProps) {
+export default function ReceipeModal({
+  open,
+  onClose,
+  editingReceipe,
+}: IProps) {
   /* Modal states */
   const [title, setTitle] = useState("");
   const [explaination, setExplaination] = useState("");
@@ -36,6 +45,15 @@ export default function NewReceipeModal({ open, onClose }: IProps) {
     []
   );
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (editingReceipe !== undefined) {
+      setTitle(editingReceipe.getName());
+      setExplaination(editingReceipe.getExplanation());
+      setEaters(editingReceipe.getEaters());
+      setIngredients(editingReceipe.getIngredients());
+    }
+  }, [editingReceipe]);
 
   /* Handlers */
 
@@ -96,7 +114,11 @@ export default function NewReceipeModal({ open, onClose }: IProps) {
         eaters,
         explaination.trim()
       );
-      receipeDatabase.addReceipe(receipe);
+      if (editingReceipe === undefined) {
+        receipeDatabase.addReceipe(receipe);
+      } else {
+        receipeDatabase.editReceipe(receipe);
+      }
       handleCloseModal();
     }
   };
@@ -104,10 +126,15 @@ export default function NewReceipeModal({ open, onClose }: IProps) {
   return (
     <CssBaseline>
       <Dialog open={open} onClose={handleCloseModal} maxWidth="md" fullWidth>
-        <DialogTitle>Add a new receipe</DialogTitle>
+        <DialogTitle>
+          {editingReceipe === undefined
+            ? "Add a new receipe"
+            : "Modify existing receipe"}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To add a receipe please enter all the different fields below
+            To {editingReceipe === undefined ? "add" : "modify"} a receipe
+            please fill all the different fields below
           </DialogContentText>
           <TextField
             label="Title of your receipe"
@@ -232,7 +259,7 @@ export default function NewReceipeModal({ open, onClose }: IProps) {
             variant="contained"
             onClick={handleAddReceipe}
           >
-            Add receipe
+            {editingReceipe === undefined ? "add" : "modify"} receipe
           </Button>
         </DialogContent>
       </Dialog>
