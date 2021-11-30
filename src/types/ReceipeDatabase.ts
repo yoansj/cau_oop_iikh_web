@@ -107,6 +107,23 @@ export class ReceipeDatabase {
     );
   }
 
+  /**
+   * Returns a receipe by id, if not found returns undefined
+   * @param id - Id of the receipe to return
+   * @returns Found receipe or undefined
+   */
+  getReceipeById(id: string): Receipe | undefined {
+    const index = this.receipesArray.findIndex((r) => {
+      return r.getId() === id;
+    });
+
+    if (index === -1) {
+      return undefined;
+    } else {
+      return this.receipesArray[index];
+    }
+  }
+
   getAllReceipes(): Array<Receipe> {
     return this.receipesArray;
   }

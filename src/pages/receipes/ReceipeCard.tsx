@@ -9,6 +9,7 @@ import theme from "../../config/theme";
 
 import Receipe from "../../types/Receipe";
 import { receipeDatabase } from "../../config/classes";
+import { useNavigate } from "react-router";
 
 interface IProps {
   /**
@@ -28,6 +29,8 @@ interface IProps {
 }
 
 export default function ReceipeCard({ receipe, onEdit, onDelete }: IProps) {
+  const navigate = useNavigate();
+
   const handleEdit = () => {
     if (onEdit) {
       onEdit(receipe);
@@ -37,6 +40,10 @@ export default function ReceipeCard({ receipe, onEdit, onDelete }: IProps) {
   const handleDelete = () => {
     receipeDatabase.deleteReceipe(receipe);
     if (onDelete) onDelete();
+  };
+
+  const handleOpen = () => {
+    navigate(`/receipe/${receipe.getId()}`);
   };
 
   return (
@@ -65,7 +72,12 @@ export default function ReceipeCard({ receipe, onEdit, onDelete }: IProps) {
             </Grid>
             <Grid item container direction="row" spacing={1}>
               <Grid item>
-                <Button color="primary" variant="outlined" size="small">
+                <Button
+                  color="primary"
+                  variant="outlined"
+                  size="small"
+                  onClick={handleOpen}
+                >
                   Open receipe
                 </Button>
               </Grid>

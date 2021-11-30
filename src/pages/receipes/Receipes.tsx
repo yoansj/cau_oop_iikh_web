@@ -25,6 +25,7 @@ export default function Receipes() {
     } else {
       return receipeDatabase.getReceipesByName(search);
     }
+    // eslint-disable-next-line
   }, [search, refresh]);
 
   /* Modal states */
