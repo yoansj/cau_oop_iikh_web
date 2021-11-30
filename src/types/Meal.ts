@@ -38,12 +38,24 @@ export class Meal {
     }
 
     getMealIngredients() : Array<[Ingredient,number]>{
-        let listIngredients : Array<[Ingredient,number]>=[];
-        //A FINIR
+        var listIngredients : Array<[Ingredient,number]>=[];
+        // var auxingredients : Array<Ingredient>=[];
+        // for(var i = 0; i < this.mealReceipe.length; i++){ 
+
+        //     var aux : Array<[Ingredient,number]>= this.mealReceipe[i].getIngredients();
+        //     for(var j=0;j<aux.length;j++){
+        //         var index : number = auxingredients.indexOf(aux[j][0])
+        //         if(index ==-1){
+        //             //we need to add this new ingredients to the liste
+        //             auxingredients.push(aux[j][0]);
+        //             listIngredients.push(aux[j]);
+        //         } else {
+                    
+        //             //the ingredients is already in the list we just need to add the quantity
+        //         }
+        //     }
+        //     //newlist.push([this.ingredients[i][0],this.ingredients[i][1]*factor]);
+        // }
         return listIngredients;
     }
-    //   /**
-    //    * @brief  Returns the ingredients for the meal
-    //    */
-    //   Ingredients getMealIngredients() const;
 }
