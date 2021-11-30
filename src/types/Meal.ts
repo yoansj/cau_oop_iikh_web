@@ -1,4 +1,4 @@
-import { Receipe } from "./Receipe";
+import Receipe from "./Receipe";
 import { Ingredient } from "./Receipe";
 
 export class Meal {
