@@ -11,6 +11,9 @@ import { receipeDatabase } from "../../config/classes";
 import Receipe from "../../types/Receipe";
 import { useParams } from "react-router-dom";
 
+/**
+ * This component renders a receipe on a single page
+ */
 export default function ReceipeDisplay() {
   const { id } = useParams();
 
@@ -79,7 +82,7 @@ export default function ReceipeDisplay() {
               direction="column"
               justifyContent="center"
               alignItems="center"
-              spacing={3}
+              spacing={5}
               sx={{ marginTop: "3vh" }}
             >
               <Grid item>
@@ -90,14 +93,57 @@ export default function ReceipeDisplay() {
                 </Fade>
               </Grid>
               <Grid item>
-                <Fade in timeout={1400}>
-                  <Typography variant="h6" textAlign="center">
+                <Fade in timeout={2000}>
+                  <Typography variant="h6" textAlign="center" color="#1e88e5">
+                    Receipe made for
+                  </Typography>
+                </Fade>
+                <Fade in timeout={3000}>
+                  <Typography variant="body1" textAlign="center">
+                    {receipe.getEaters()} people
+                  </Typography>
+                </Fade>
+              </Grid>
+              <Grid item>
+                <Fade in timeout={4000}>
+                  <Typography variant="h6" textAlign="center" color="#1e88e5">
+                    Ingredients of the receipe
+                  </Typography>
+                </Fade>
+                <Fade in timeout={5000}>
+                  <Grid item container direction="column">
+                    {receipe.getIngredients().map(([ingredient, number]) => (
+                      <Typography variant="body1" textAlign="center">
+                        • {number} {ingredient}
+                      </Typography>
+                    ))}
+                  </Grid>
+                </Fade>
+              </Grid>
+              <Grid item>
+                <Fade in timeout={6000}>
+                  <Typography variant="h6" textAlign="center" color="#1e88e5">
                     Explanation of the receipe
                   </Typography>
                 </Fade>
-                <Fade in timeout={1400}>
-                  <Typography variant="body1" textAlign="center">
+                <Fade in timeout={7000}>
+                  <Typography
+                    variant="body1"
+                    textAlign="center"
+                    sx={{ whiteSpace: "pre-line" }}
+                  >
                     {receipe.getExplanation()}
+                  </Typography>
+                </Fade>
+              </Grid>
+              <Grid item>
+                <Fade in timeout={8000}>
+                  <Typography
+                    variant="body2"
+                    textAlign="center"
+                    color="#1e88e5"
+                  >
+                    Id of the receipe: {receipe.getId()}
                   </Typography>
                 </Fade>
               </Grid>

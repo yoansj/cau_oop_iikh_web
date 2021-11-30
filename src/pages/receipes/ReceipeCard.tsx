@@ -70,6 +70,11 @@ export default function ReceipeCard({ receipe, onEdit, onDelete }: IProps) {
                   : receipe.getExplanation()}
               </Typography>
             </Grid>
+            <Grid item>
+              <Typography variant="body2">
+                {receipe.getIngredients().length} Different ingredients
+              </Typography>
+            </Grid>
             <Grid item container direction="row" spacing={1}>
               <Grid item>
                 <Button

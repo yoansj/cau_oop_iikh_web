@@ -15,6 +15,9 @@ import ReceipeModal from "./ReceipeModal";
 import ReceipeCard from "./ReceipeCard";
 import Receipe from "../../types/Receipe";
 
+/**
+ * This page is used to look for receipes
+ */
 export default function Receipes() {
   /* General states */
   const [search, setSearch] = useState("");
