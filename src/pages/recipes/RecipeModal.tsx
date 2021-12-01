@@ -10,8 +10,8 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import React, { useState, useEffect } from "react";
 
-import { receipeDatabase } from "../../config/classes";
-import Receipe, { Ingredient } from "../../types/Receipe";
+import { recipeDatabase } from "../../config/classes";
+import Recipe, { Ingredient } from "../../types/Recipe";
 
 interface IProps {
   /**
@@ -27,14 +27,10 @@ interface IProps {
   /**
    * If this is given, the modal will go on edit mode
    */
-  editingReceipe?: Receipe;
+  editingRecipe?: Recipe;
 }
 
-export default function ReceipeModal({
-  open,
-  onClose,
-  editingReceipe,
-}: IProps) {
+export default function RecipeModal({ open, onClose, editingRecipe }: IProps) {
   /* Modal states */
   const [title, setTitle] = useState("");
   const [explaination, setExplaination] = useState("");
@@ -47,13 +43,13 @@ export default function ReceipeModal({
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (editingReceipe !== undefined) {
-      setTitle(editingReceipe.getName());
-      setExplaination(editingReceipe.getExplanation());
-      setEaters(editingReceipe.getEaters());
-      setIngredients(editingReceipe.getIngredients());
+    if (editingRecipe !== undefined) {
+      setTitle(editingRecipe.getName());
+      setExplaination(editingRecipe.getExplanation());
+      setEaters(editingRecipe.getEaters());
+      setIngredients(editingRecipe.getIngredients());
     }
-  }, [editingReceipe]);
+  }, [editingRecipe]);
 
   /* Handlers */
 
@@ -98,7 +94,7 @@ export default function ReceipeModal({
     setIngredients(newArr);
   };
 
-  const handleAddReceipe = () => {
+  const handleAddRecipe = () => {
     if (
       title.trim() === "" ||
       explaination.trim() === "" ||
@@ -108,23 +104,23 @@ export default function ReceipeModal({
       setError(true);
       setTimeout(() => setError(false), 15000);
     } else {
-      if (editingReceipe === undefined) {
-        const receipe = new Receipe(
+      if (editingRecipe === undefined) {
+        const recipe = new Recipe(
           title.trim(),
           ingredients,
           eaters,
           explaination.trim()
         );
-        receipeDatabase.addReceipe(receipe);
+        recipeDatabase.addRecipe(recipe);
       } else {
-        const receipe = new Receipe(
+        const recipe = new Recipe(
           title.trim(),
           ingredients,
           eaters,
           explaination.trim(),
-          editingReceipe.getId()
+          editingRecipe.getId()
         );
-        receipeDatabase.editReceipe(receipe);
+        recipeDatabase.editRecipe(recipe);
       }
       handleCloseModal();
     }
@@ -134,17 +130,17 @@ export default function ReceipeModal({
     <CssBaseline>
       <Dialog open={open} onClose={handleCloseModal} maxWidth="md" fullWidth>
         <DialogTitle>
-          {editingReceipe === undefined
-            ? "Add a new receipe"
-            : "Modify existing receipe"}
+          {editingRecipe === undefined
+            ? "Add a new recipe"
+            : "Modify existing recipe"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To {editingReceipe === undefined ? "add" : "modify"} a receipe
-            please fill all the different fields below
+            To {editingRecipe === undefined ? "add" : "modify"} a recipe please
+            fill all the different fields below
           </DialogContentText>
           <TextField
-            label="Title of your receipe"
+            label="Title of your recipe"
             placeholder="Enter a non empty title"
             variant="outlined"
             color="primary"
@@ -154,8 +150,8 @@ export default function ReceipeModal({
             sx={{ marginTop: "15px" }}
           />
           <TextField
-            label="Explaination of your receipe"
-            placeholder="Describe the steps of your receipe"
+            label="Explaination of your recipe"
+            placeholder="Describe the steps of your recipe"
             variant="outlined"
             color="primary"
             onChange={handleExplainationChange}
@@ -166,7 +162,7 @@ export default function ReceipeModal({
             sx={{ marginTop: "15px" }}
           />
           <TextField
-            label="Number of people that will eat your receipe"
+            label="Number of people that will eat your recipe"
             variant="outlined"
             color="primary"
             onChange={handleEatersChange}
@@ -176,7 +172,7 @@ export default function ReceipeModal({
             sx={{ marginTop: "15px" }}
           />
           <DialogContentText sx={{ marginTop: "15px" }}>
-            Define the different ingredients of your receipe
+            Define the different ingredients of your recipe
           </DialogContentText>
           <Grid container direction="row" alignItems="center">
             <TextField
@@ -213,12 +209,12 @@ export default function ReceipeModal({
           </Grid>
           {ingredients.length === 0 ? (
             <DialogContentText sx={{ marginTop: "15px" }}>
-              You have no ingredients for that receipe, please add at least 1
+              You have no ingredients for that recipe, please add at least 1
               ingredient
             </DialogContentText>
           ) : (
             <DialogContentText sx={{ marginTop: "15px" }}>
-              Ingredients for that receipe
+              Ingredients for that recipe
             </DialogContentText>
           )}
           <Grid container direction="column">
@@ -247,27 +243,22 @@ export default function ReceipeModal({
             ))}
           </Grid>
           <DialogContentText sx={{ marginTop: "30px", marginBottom: "15px" }}>
-            Once you finalized your receipe you can add it using the button
-            below
+            Once you finalized your recipe you can add it using the button below
           </DialogContentText>
           {error ? (
             <DialogContentText sx={{ color: "red", marginBottom: "15px" }}>
-              Your receipe is not valid one of the requirements wasn't met:{" "}
+              Your recipe is not valid one of the requirements wasn't met:{" "}
               <br />
               • Have a title <br />
               • Have an explanation <br />
-              • The number of people that will eat the receipe should be greater
+              • The number of people that will eat the recipe should be greater
               than zero <br />• Have at least 1 ingredient
             </DialogContentText>
           ) : (
             []
           )}
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={handleAddReceipe}
-          >
-            {editingReceipe === undefined ? "add" : "modify"} receipe
+          <Button color="primary" variant="contained" onClick={handleAddRecipe}>
+            {editingRecipe === undefined ? "add" : "modify"} recipe
           </Button>
         </DialogContent>
       </Dialog>

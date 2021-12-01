@@ -31,41 +31,41 @@ export enum Ingredient {
 }
 
 /**
- * Receipe class
+ * Recipe class
  */
-export default class Receipe {
+export default class Recipe {
   /**
-   * Name of the receipe
+   * Name of the recipe
    */
   private name: string;
 
   /**
-   * Ingredients of the receipe, quantity is in gram
+   * Ingredients of the recipe, quantity is in gram
    */
   private ingredients: Array<[Ingredient, number]>;
 
   /**
-   * Number of people supposed to eat the receipe
+   * Number of people supposed to eat the recipe
    */
   private eaters: number;
 
   /**
-   * Explanation on how to make the receipe
+   * Explanation on how to make the recipe
    */
   private explanation: string;
 
   /**
-   * (UUID) id of the receipe
+   * (UUID) id of the recipe
    */
   private id: string;
 
   /**
-   * Constructor for a receipe
-   * @param name - Name of the receipe
-   * @param ingredients - Ingredients needed for the receipe
-   * @param eaters - Number of people expected to eat the receipe
-   * @param explanation - How to make the receipe
-   * @param id - Optionnal, in most case id is auto generated, id won't be auto generated if its an upsaled receipe
+   * Constructor for a recipe
+   * @param name - Name of the recipe
+   * @param ingredients - Ingredients needed for the recipe
+   * @param eaters - Number of people expected to eat the recipe
+   * @param explanation - How to make the recipe
+   * @param id - Optionnal, in most case id is auto generated, id won't be auto generated if its an upsaled recipe
    */
   constructor(
     name: string,
@@ -97,7 +97,7 @@ export default class Receipe {
   }
 
   static deserialize(serialized: any) {
-    return new Receipe(
+    return new Recipe(
       serialized.name,
       serialized.ingredients,
       serialized.eaters,
@@ -142,18 +142,12 @@ export default class Receipe {
     this.explanation = newEplenation;
   }
 
-  upScaleReceipe(newEaters: number): Receipe {
+  upScaleRecipe(newEaters: number): Recipe {
     let factor = newEaters / this.eaters;
     let newlist: Array<[Ingredient, number]> = [];
     for (var i = 0; i < this.ingredients.length; i++) {
       newlist.push([this.ingredients[i][0], this.ingredients[i][1] * factor]);
     }
-    return new Receipe(
-      this.name,
-      newlist,
-      newEaters,
-      this.explanation,
-      this.id
-    );
+    return new Recipe(this.name, newlist, newEaters, this.explanation, this.id);
   }
 }

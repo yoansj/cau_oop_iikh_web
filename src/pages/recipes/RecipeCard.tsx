@@ -5,22 +5,23 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import React from "react";
 import { ThemeProvider } from "@mui/material/styles";
+import PersonIcon from "@mui/icons-material/Person";
 import theme from "../../config/theme";
 
-import Receipe from "../../types/Receipe";
-import { receipeDatabase } from "../../config/classes";
+import Recipe from "../../types/Recipe";
+import { recipeDatabase } from "../../config/classes";
 import { useNavigate } from "react-router";
 
 interface IProps {
   /**
-   * Receipe object
+   * Recipe object
    */
-  receipe: Receipe;
+  recipe: Recipe;
 
   /**
-   * Function called when the receipe needs to be edited
+   * Function called when the recipe needs to be edited
    */
-  onEdit?: (receipe: Receipe) => void;
+  onEdit?: (recipe: Recipe) => void;
 
   /**
    * Function called on delete
@@ -28,22 +29,22 @@ interface IProps {
   onDelete?: () => void;
 }
 
-export default function ReceipeCard({ receipe, onEdit, onDelete }: IProps) {
+export default function RecipeCard({ recipe, onEdit, onDelete }: IProps) {
   const navigate = useNavigate();
 
   const handleEdit = () => {
     if (onEdit) {
-      onEdit(receipe);
+      onEdit(recipe);
     }
   };
 
   const handleDelete = () => {
-    receipeDatabase.deleteReceipe(receipe);
+    recipeDatabase.deleteRecipe(recipe);
     if (onDelete) onDelete();
   };
 
   const handleOpen = () => {
-    navigate(`/receipe/${receipe.getId()}`);
+    navigate(`/recipe/${recipe.getId()}`);
   };
 
   return (
@@ -61,19 +62,29 @@ export default function ReceipeCard({ receipe, onEdit, onDelete }: IProps) {
             }}
           >
             <Grid item>
-              <Typography variant="h5">{receipe.getName()}</Typography>
+              <Typography variant="h5">{recipe.getName()}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="body1">
-                {receipe.getExplanation().length > 50
-                  ? receipe.getExplanation().substr(0, 50) + "..."
-                  : receipe.getExplanation()}
+                {recipe.getExplanation().length > 50
+                  ? recipe.getExplanation().substr(0, 50) + "..."
+                  : recipe.getExplanation()}
               </Typography>
             </Grid>
             <Grid item>
               <Typography variant="body2">
-                {receipe.getIngredients().length} Different ingredients
+                {recipe.getIngredients().length} Different ingredients
               </Typography>
+            </Grid>
+            <Grid item container direction="row" spacing={1}>
+              <Grid item>
+                <Typography variant="body2" fontWeight="bold">
+                  {recipe.getEaters()}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <PersonIcon sx={{ lineHeight: "1.43" }} color="primary" />
+              </Grid>
             </Grid>
             <Grid item container direction="row" spacing={1}>
               <Grid item>
@@ -83,7 +94,7 @@ export default function ReceipeCard({ receipe, onEdit, onDelete }: IProps) {
                   size="small"
                   onClick={handleOpen}
                 >
-                  Open receipe
+                  Open recipe
                 </Button>
               </Grid>
               <Grid item>
@@ -93,7 +104,7 @@ export default function ReceipeCard({ receipe, onEdit, onDelete }: IProps) {
                   size="small"
                   onClick={handleEdit}
                 >
-                  Edit receipe
+                  Edit recipe
                 </Button>
               </Grid>
               <Grid item>
@@ -103,7 +114,7 @@ export default function ReceipeCard({ receipe, onEdit, onDelete }: IProps) {
                   size="small"
                   onClick={handleDelete}
                 >
-                  Delete receipe
+                  Delete recipe
                 </Button>
               </Grid>
             </Grid>

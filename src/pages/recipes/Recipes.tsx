@@ -10,30 +10,30 @@ import React, { useMemo, useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../config/theme";
 
-import { receipeDatabase } from "../../config/classes";
-import ReceipeModal from "./ReceipeModal";
-import ReceipeCard from "./ReceipeCard";
-import Receipe from "../../types/Receipe";
+import { recipeDatabase } from "../../config/classes";
+import RecipeModal from "./RecipeModal";
+import RecipeCard from "./RecipeCard";
+import Recipe from "../../types/Recipe";
 
 /**
- * This page is used to look for receipes
+ * This page is used to look for recipes
  */
-export default function Receipes() {
+export default function Recipes() {
   /* General states */
   const [search, setSearch] = useState("");
   const [refresh, setRefresh] = useState(false);
-  const filteredReceipes = useMemo(() => {
+  const filteredRecipes = useMemo(() => {
     if (search === "") {
-      return receipeDatabase.getAllReceipes();
+      return recipeDatabase.getAllRecipes();
     } else {
-      return receipeDatabase.getReceipesByName(search);
+      return recipeDatabase.getRecipesByName(search);
     }
     // eslint-disable-next-line
   }, [search, refresh]);
 
   /* Modal states */
   const [open, setOpen] = useState(false);
-  const [editedReceipe, setEdiReceipe] = useState<Receipe>();
+  const [editedRecipe, setEdiRecipe] = useState<Recipe>();
 
   /* Handlers */
 
@@ -45,12 +45,12 @@ export default function Receipes() {
   // Modal handlers
   const handleCloseModal = () => {
     setOpen(false);
-    if (editedReceipe !== undefined) setEdiReceipe(undefined);
+    if (editedRecipe !== undefined) setEdiRecipe(undefined);
   };
   const handleOpenModal = () => setOpen(true);
 
-  const handleEditReceipe = (receipe: Receipe) => {
-    setEdiReceipe(receipe);
+  const handleEditRecipe = (recipe: Recipe) => {
+    setEdiRecipe(recipe);
     handleOpenModal();
   };
 
@@ -68,7 +68,7 @@ export default function Receipes() {
             <Grid item>
               <Fade in timeout={800}>
                 <Typography variant="h2" textAlign="center">
-                  Receipes
+                  Recipes
                 </Typography>
               </Fade>
             </Grid>
@@ -82,7 +82,7 @@ export default function Receipes() {
               <Grid item xs={6}>
                 <Fade in timeout={1000}>
                   <TextField
-                    label="Search a receipe by name"
+                    label="Search a recipe by name"
                     placeholder="Non case sensitive enter what you would like to see"
                     variant="outlined"
                     color="primary"
@@ -101,7 +101,7 @@ export default function Receipes() {
                     sx={{ width: "100%", height: "100%" }}
                     onClick={handleOpenModal}
                   >
-                    New receipe
+                    New recipe
                   </Button>
                 </Fade>
               </Grid>
@@ -118,12 +118,12 @@ export default function Receipes() {
                     alignItems="center"
                     sx={{ paddingTop: "20px" }}
                   >
-                    {filteredReceipes.map((receipe) => (
-                      <ReceipeCard
-                        receipe={receipe}
-                        onEdit={handleEditReceipe}
+                    {filteredRecipes.map((recipe) => (
+                      <RecipeCard
+                        recipe={recipe}
+                        onEdit={handleEditRecipe}
                         onDelete={() => setRefresh((r) => !r)}
-                        key={receipe.getId()}
+                        key={recipe.getId()}
                       />
                     ))}
                   </Grid>
@@ -133,7 +133,7 @@ export default function Receipes() {
                       textAlign="center"
                       color="#1e88e5"
                     >
-                      {filteredReceipes.length} recipes found
+                      {filteredRecipes.length} recipes found
                     </Typography>
                   ) : (
                     <Typography
@@ -141,8 +141,8 @@ export default function Receipes() {
                       textAlign="center"
                       color="#1e88e5"
                     >
-                      {filteredReceipes.length} recipe
-                      {filteredReceipes.length > 1 ? "s" : ""} in the database
+                      {filteredRecipes.length} recipe
+                      {filteredRecipes.length > 1 ? "s" : ""} in the database
                     </Typography>
                   )}
                 </Paper>
@@ -150,10 +150,10 @@ export default function Receipes() {
             </Grid>
           </Grid>
         </Container>
-        <ReceipeModal
+        <RecipeModal
           open={open}
           onClose={handleCloseModal}
-          editingReceipe={editedReceipe}
+          editingRecipe={editedRecipe}
         />
       </CssBaseline>
     </ThemeProvider>

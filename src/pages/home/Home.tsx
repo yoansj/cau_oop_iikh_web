@@ -12,7 +12,7 @@ import theme from "../../config/theme";
 export default function Home() {
   const navigate = useNavigate();
 
-  const handleNavigateReceipes = () => navigate("/receipes");
+  const handleNavigateRecipes = () => navigate("/recipes");
 
   return (
     <ThemeProvider theme={theme}>
@@ -37,9 +37,9 @@ export default function Home() {
                 <Button
                   variant="contained"
                   size="large"
-                  onClick={handleNavigateReceipes}
+                  onClick={handleNavigateRecipes}
                 >
-                  Browse receipes
+                  Browse recipes
                 </Button>
               </Fade>
             </Grid>

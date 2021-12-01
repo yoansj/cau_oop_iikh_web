@@ -7,29 +7,29 @@ import React, { useState, useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../config/theme";
 
-import { receipeDatabase } from "../../config/classes";
-import Receipe from "../../types/Receipe";
+import { recipeDatabase } from "../../config/classes";
+import Recipe from "../../types/Recipe";
 import { useParams } from "react-router-dom";
 
 /**
- * This component renders a receipe on a single page
+ * This component renders a recipe on a single page
  */
-export default function ReceipeDisplay() {
+export default function RecipeDisplay() {
   const { id } = useParams();
 
-  const [receipe, setReceipe] = useState<Receipe>();
+  const [recipe, setRecipe] = useState<Recipe>();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    const foundReceipe = receipeDatabase.getReceipeById(id || "nosuchidsadly");
+    const foundRecipe = recipeDatabase.getRecipeById(id || "nosuchidsadly");
 
-    if (foundReceipe === undefined) {
+    if (foundRecipe === undefined) {
       setIsLoading(false);
       setError(true);
     } else {
       setIsLoading(false);
-      setReceipe(foundReceipe);
+      setRecipe(foundRecipe);
     }
   }, [id]);
 
@@ -56,7 +56,7 @@ export default function ReceipeDisplay() {
               <Grid item>
                 <Fade in timeout={1400}>
                   <Typography variant="h6" textAlign="center">
-                    This receipe does not exist
+                    This recipe does not exist
                   </Typography>
                 </Fade>
               </Grid>
@@ -72,7 +72,7 @@ export default function ReceipeDisplay() {
         </CssBaseline>
       </ThemeProvider>
     );
-  } else if (isLoading === false && error === false && receipe !== undefined) {
+  } else if (isLoading === false && error === false && recipe !== undefined) {
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline>
@@ -88,31 +88,31 @@ export default function ReceipeDisplay() {
               <Grid item>
                 <Fade in timeout={1000}>
                   <Typography variant="h2" textAlign="center">
-                    {receipe.getName()}
+                    {recipe.getName()}
                   </Typography>
                 </Fade>
               </Grid>
               <Grid item>
                 <Fade in timeout={2000}>
                   <Typography variant="h6" textAlign="center" color="#1e88e5">
-                    Receipe made for
+                    Recipe made for
                   </Typography>
                 </Fade>
                 <Fade in timeout={3000}>
                   <Typography variant="body1" textAlign="center">
-                    {receipe.getEaters()} people
+                    {recipe.getEaters()} people
                   </Typography>
                 </Fade>
               </Grid>
               <Grid item>
                 <Fade in timeout={4000}>
                   <Typography variant="h6" textAlign="center" color="#1e88e5">
-                    Ingredients of the receipe
+                    Ingredients of the recipe
                   </Typography>
                 </Fade>
                 <Fade in timeout={5000}>
                   <Grid item container direction="column">
-                    {receipe.getIngredients().map(([ingredient, number]) => (
+                    {recipe.getIngredients().map(([ingredient, number]) => (
                       <Typography variant="body1" textAlign="center">
                         • {number} {ingredient}
                       </Typography>
@@ -123,7 +123,7 @@ export default function ReceipeDisplay() {
               <Grid item>
                 <Fade in timeout={6000}>
                   <Typography variant="h6" textAlign="center" color="#1e88e5">
-                    Explanation of the receipe
+                    Explanation of the recipe
                   </Typography>
                 </Fade>
                 <Fade in timeout={7000}>
@@ -132,7 +132,7 @@ export default function ReceipeDisplay() {
                     textAlign="center"
                     sx={{ whiteSpace: "pre-line" }}
                   >
-                    {receipe.getExplanation()}
+                    {recipe.getExplanation()}
                   </Typography>
                 </Fade>
               </Grid>
@@ -143,7 +143,7 @@ export default function ReceipeDisplay() {
                     textAlign="center"
                     color="#1e88e5"
                   >
-                    Id of the receipe: {receipe.getId()}
+                    Id of the recipe: {recipe.getId()}
                   </Typography>
                 </Fade>
               </Grid>
@@ -175,7 +175,7 @@ export default function ReceipeDisplay() {
               <Grid item>
                 <Fade in timeout={3000}>
                   <Typography variant="h6" textAlign="center">
-                    This receipe does not exist
+                    This recipe does not exist
                   </Typography>
                 </Fade>
               </Grid>

@@ -1,5 +1,5 @@
-import { ReceipeDatabase } from "../types/ReceipeDatabase";
+import { RecipeDatabase } from "../types/RecipeDatabase";
 
-const receipeDatabase = new ReceipeDatabase();
+const recipeDatabase = new RecipeDatabase();
 
-export { receipeDatabase };
+export { recipeDatabase };

@@ -1,3 +1,3 @@
-const databaseKey = "iikh-mmy-receipes";
+const databaseKey = "iikh-mmy-recipes";
 
 export default databaseKey;
