@@ -94,6 +94,10 @@ export enum Ingredient {
   COCONUT="COCONUT",
   SEEDS="SEEDS",
   PASTA="PASTA",
+  CHOCOLATE="CHOCOLATE",
+  WINE="WINE",
+  OIL="OIL",
+  VINEGAR="VINEGAR",
 }
 
 /**
