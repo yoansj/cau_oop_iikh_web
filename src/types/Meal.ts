@@ -40,19 +40,19 @@ export class Meal {
     var listIngredients: Array<[Ingredient, number]> = [];
 
     for (var i = 0; i < this.mealRecipe.length; i++) {
-      var IngredientinRecipeI: Array<[Ingredient, number]> =
+      var IngredientInRecipeI: Array<[Ingredient, number]> =
         this.mealRecipe[i].getIngredients();
-      for (var j = 0; j < IngredientinRecipeI.length; j++) {
+      for (var j = 0; j < IngredientInRecipeI.length; j++) {
         var stop: number = 0;
         for (var k = 0; k < listIngredients.length && stop != 1; k++) {
-          if (listIngredients[k][0] == IngredientinRecipeI[j][0]) {
-            //already in the list need to add the quantity
-            listIngredients[k][1] += IngredientinRecipeI[j][1];
+          if (listIngredients[k][0] == IngredientInRecipeI[j][0]) {
+            //already in the list -> need to add the quantity to the previous quantity
+            listIngredients[k][1] += IngredientInRecipeI[j][1];
             stop = 1;
           }
         }
-        //we didnt find the ingredient in listIngredients so we need to add it
-        listIngredients.push(IngredientinRecipeI[j]);
+        //we didnt find the ingredient in listIngredients so we need to add it.
+        listIngredients.push(IngredientInRecipeI[j]);
       }
     }
     return listIngredients;
