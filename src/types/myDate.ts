@@ -1,8 +1,8 @@
 export class myDate{
     //attributes
-    day: number;
-    month: number;
-    year: number;
+    private day: number;
+    private month: number;
+    private year: number;
 
     //methods
     constructor(day: number, month:number, year: number){
