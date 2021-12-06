@@ -51,7 +51,7 @@ export class Planner {
         this.isAfter(meal.getMealDate(), dateStart) &&
         this.isBefore(meal.getMealDate(), dateEnd)
       ) {
-        return meal;
+        resultArray.push(meal);
       }
     });
     return resultArray;
@@ -73,7 +73,8 @@ export class Planner {
     return this.mealsArray;
   }
 
-  generateGroceriesForPeriod(dateStart: Date, dateEnd: Date) {
+  generateGroceriesForPeriod(dateStart: Date | null, dateEnd: Date | null) {
+    if (dateStart === null || dateEnd === null) return [];
     var listIngredients: Array<[Ingredient, number]> = [];
     var listMeal: Array<Meal> = [];
     listMeal = this.getPlannedMealsForPeriod(dateStart, dateEnd);
@@ -102,8 +103,6 @@ export class Planner {
     var listIngredients: Array<[Ingredient, number]> = [];
     var listMeal: Array<Meal> = [];
     listMeal = this.getPlannedsMealsToday();
-
-    console.log(this.getPlannedsMealsToday());
 
     for (var i = 0; i < listMeal.length; i++) {
       var meal: Meal = listMeal[i];

@@ -98,6 +98,10 @@ export enum Ingredient {
   WINE = "WINE",
   OIL = "OIL",
   VINEGAR = "VINEGAR",
+  SUGAR = "SUGAR",
+  SALT = "SALT",
+  MAYONNAISE = "MAYONNAISE",
+  FLOUR = "FLOUR",
 }
 
 /**

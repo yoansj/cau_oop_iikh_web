@@ -35,6 +35,7 @@ export default function Calendar() {
 
   const handleGenerateGroceryToday = () => {
     let file = "";
+    file += "Groceries list for " + new Date().toLocaleDateString() + "\n";
     planner.generateGroceriesToday().forEach((tuple, index) => {
       file += tuple[0] + " " + tuple[1] + "\n";
     });
@@ -43,6 +44,27 @@ export default function Calendar() {
     let a = document.createElement("a");
     a.href = url;
     a.download = "today-groceries.txt";
+    a.click();
+  };
+
+  const handleGenerateGroceryPeriod = () => {
+    let file = "Groceries list for period\n";
+    if (value[0] !== null && value[1] !== null)
+      file +=
+        value[0].toLocaleDateString() +
+        " " +
+        value[1].toLocaleDateString() +
+        "\n";
+    planner
+      .generateGroceriesForPeriod(value[0], value[1])
+      .forEach((tuple, index) => {
+        file += tuple[0] + " " + tuple[1] + "\n";
+      });
+    const blob = new Blob([file]);
+    const url = URL.createObjectURL(blob);
+    let a = document.createElement("a");
+    a.href = url;
+    a.download = "period-groceries.txt";
     a.click();
   };
 
@@ -55,7 +77,13 @@ export default function Calendar() {
       <CssBaseline>
         <LocalizationProvider dateAdapter={DateFnsAdapter}>
           <Container maxWidth="xl">
-            <Grid container direction="row" justifyContent="center" spacing={5}>
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              spacing={5}
+              sx={{ marginTop: "20vh" }}
+            >
               <Grid item>
                 <Typography variant="h2" textAlign="center">
                   Calendar
@@ -74,22 +102,34 @@ export default function Calendar() {
                     </React.Fragment>
                   )}
                 />
-                <Button variant="contained" color="primary">
-                  Generate grocery list for this period
-                </Button>
-                <Button
-                  variant="contained"
-                  color="success"
-                  onClick={handleGenerateGroceryToday}
+                <Grid
+                  item
+                  container
+                  direction="column"
+                  sx={{ marginTop: "2.5vh" }}
                 >
-                  Generate grocery list for today
-                </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleGenerateGroceryPeriod}
+                    disabled={value[0] === null || value[1] === null}
+                  >
+                    Generate grocery list for this period
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="success"
+                    onClick={handleGenerateGroceryToday}
+                  >
+                    Generate grocery list for today
+                  </Button>
+                </Grid>
               </Grid>
               <Grid item>
                 <Typography variant="h2" textAlign="center">
                   Planned meals
                 </Typography>
-                <Grid item container direction="column">
+                <Grid item container direction="column" alignItems="center">
                   {meals.map((meal, index) => (
                     <MealCard
                       meal={meal}
@@ -106,6 +146,7 @@ export default function Calendar() {
                   variant="contained"
                   color="primary"
                   onClick={() => setOpen(true)}
+                  sx={{ marginTop: "2.5vh", marginLeft: "4vw" }}
                 >
                   Add a new planned meal
                 </Button>
