@@ -30,6 +30,17 @@ interface IProps {
   editingRecipe?: Recipe;
 }
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
 export default function RecipeModal({ open, onClose, editingRecipe }: IProps) {
   /* Modal states */
   const [title, setTitle] = useState("");
@@ -187,15 +198,18 @@ export default function RecipeModal({ open, onClose, editingRecipe }: IProps) {
             <Select
               value={ingredientToAdd}
               onChange={handleIngredientToAddChange}
+              MenuProps={MenuProps}
               sx={{
                 marginTop: "15px",
                 marginRight: "10px",
                 marginLeft: "10px",
               }}
             >
-              {Object.keys(Ingredient).map((ingredient) => (
-                <MenuItem value={ingredient}>{ingredient}</MenuItem>
-              ))}
+              {Object.keys(Ingredient)
+                .sort((a, b) => a.localeCompare(b))
+                .map((ingredient) => (
+                  <MenuItem value={ingredient}>{ingredient}</MenuItem>
+                ))}
             </Select>
             <Button
               color="primary"

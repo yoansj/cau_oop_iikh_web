@@ -13,6 +13,7 @@ export default function Home() {
   const navigate = useNavigate();
 
   const handleNavigateRecipes = () => navigate("/recipes");
+  const handleNavigateCalendar = () => navigate("/calendar");
 
   return (
     <ThemeProvider theme={theme}>
@@ -45,15 +46,12 @@ export default function Home() {
             </Grid>
             <Grid item>
               <Fade in timeout={1200}>
-                <Button variant="contained" size="large">
+                <Button
+                  variant="contained"
+                  size="large"
+                  onClick={handleNavigateCalendar}
+                >
                   Calendar
-                </Button>
-              </Fade>
-            </Grid>
-            <Grid item>
-              <Fade in timeout={1400}>
-                <Button variant="contained" size="large">
-                  About
                 </Button>
               </Fade>
             </Grid>
